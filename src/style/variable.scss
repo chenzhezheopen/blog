@@ -1,0 +1,29 @@
+
+
+
+
+$PrimaryColor: var(--el-color-primary);
+
+
+//reset
+html,body{
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    color: var(--vt-c-text-2);
+    font-family: 'cursive';
+    background: var(--background-color);
+}
+i{
+    font-style: inherit;
+}
+img{
+    pointer-events: none;
+    display: block;
+}
+
+
+//主色调
+// $PrimaryColor:var(--el-color-primary);
+$temp1 :red;
+

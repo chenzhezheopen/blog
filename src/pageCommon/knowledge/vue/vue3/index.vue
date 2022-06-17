@@ -5,7 +5,7 @@
             'marginRight':Math.random()*160+'px',
             'marginTop':Math.random()*60+'px',
         }">
-            <el-tag @click="$router.push(item.path)">{{item.title}}</el-tag>
+            <el-tag @click="$router.push('/page-knowledge/'+item.path)">{{item.title}}</el-tag>
         </div>
     </div>
   </div>
@@ -16,116 +16,11 @@ export default {
         return{
             data:[{
                 title:'异步组件加载',
-                path:'/defaultAsyncComponent'
+                path:'defaultAsyncComponent'
             },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },{
-                title:'异步组件加载',
-                path:'/defaultAsyncComponent'
-            },]
+                title:'视口区域加载',
+                path:'useInterSelectionObserver'
+            }]
         }
     }
 }

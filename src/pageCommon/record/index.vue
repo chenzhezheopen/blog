@@ -34,6 +34,20 @@
                             <p>3：动态设置document title</p>
                         </el-card>
                     </el-timeline-item>
+                    <el-timeline-item timestamp="2022/6/16" placement="top">
+                        <el-card :style="{textAlign:'left'}">
+                            <h4>知识库</h4>
+                            <p>1：路由knowledge的模块</p>
+                            <p>2：异步加载实例</p>
+                            <p>3：视口区域加载实例</p>
+                        </el-card>
+                    </el-timeline-item>
+                    <el-timeline-item timestamp="2022/6/17" placement="top">
+                        <el-card :style="{textAlign:'left'}">
+                            <h4>动画优化</h4>
+                            <p>1：common模块跳转时header的动画</p>
+                        </el-card>
+                    </el-timeline-item>
                 </el-timeline>
             </div>
         </div>

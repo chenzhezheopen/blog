@@ -59,9 +59,13 @@
 
 </template>
 <script lang='ts' setup>
+
+
 import {getCurrentInstance } from 'vue'
 import {useAppStore} from '@/pinia/app'
 import {storeToRefs} from 'pinia'
+
+
 </script>
 <style scoped lang='scss'>
 .banner-wrapper {

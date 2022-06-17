@@ -1,6 +1,6 @@
 <template>
     <div class="layout-common-wrapper">
-        <div class="layout-common-header">
+        <div class="layout-common-header" :class="{isShow:commonHeaderVisible}">
             <slot name="header" class="111"></slot>
         </div>
         <slot name="body"></slot>
@@ -10,14 +10,10 @@
     </div>
 </template>
 
-<script>
-export default {
-    created() {
-        window.scroll(() => {
-            console.log(1111111);
-        })
-    }
-}
+<script setup>
+import {useAppStore} from '@/pinia/app'
+import { storeToRefs } from 'pinia';
+const {commonHeaderVisible} = storeToRefs(useAppStore())
 
 </script>
 
@@ -32,6 +28,11 @@ export default {
         top: 0;
         background: var(--background-color);
         z-index: 99;
+        transform: translateY(-110%);
+        transition: .4s;
+    }
+    .isShow{
+        transform: translateY(0);
     }
     .layout-common-bottom {
         margin-top: 50px;

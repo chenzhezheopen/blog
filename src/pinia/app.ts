@@ -6,7 +6,9 @@ export const useAppStore = defineStore('app',{
         isNavbar: false,
         isThemeDark: false,
         //title
-        pageTitle:'---'
+        pageTitle:'---',
+        // common
+        commonHeaderVisible:false
     }),
     actions: {
         changeNavBar(isNavbar:boolean) {

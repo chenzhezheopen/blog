@@ -1,6 +1,7 @@
 <template>
   <div class="default-async-component">
     <!-- <img :src="imgUrl" alt=""> -->
+    <div>注意看资源加载</div>
     <template v-for="(data, index) in list" :key="index">
       <async-template :url="data.url"></async-template>
     </template>

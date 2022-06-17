@@ -38,6 +38,19 @@
         </commonLayout>
     </div>
 </template>
+<script lang="ts">
+import {useAppStore} from '@/pinia/app'
+import {storeToRefs} from 'pinia'
+export default{
+  beforeRouteLeave(to, from, next) {
+    const {commonHeaderVisible} = storeToRefs(useAppStore())
+    commonHeaderVisible.value = false
+    setTimeout(() => {
+        next()    
+    }, 400);
+  },
+}
+</script>
 <script lang='ts' setup>
 import commonLayout from "@/components/layout/common/index.vue";
 import {useRoute} from 'vue-router'
@@ -46,12 +59,20 @@ import commonRoute from '@/router/common'
 import CommonMenu from './menu.vue'
 
 
+const {commonHeaderVisible} = storeToRefs(useAppStore())
+//menu data
 const menuNav = commonRoute.children
+//init active
 const route = useRoute()
 const activeIndex = ref("/page-common/home");
 onMounted(()=>{
     activeIndex.value = route.path
+    setTimeout(() => {
+        
+    commonHeaderVisible.value = true
+    }, 500);
 })
+
 </script>
 <style scoped lang='scss'>
 .page-common-container {

@@ -13,19 +13,7 @@ export default {
     components:{RandomModule},
     setup(){
         return{
-            data:[{
-                title:'异步组件加载',
-                path:'defaultAsyncComponent'
-            },{
-                title:'视口区域加载',
-                path:'useInterSelectionObserver'
-            },{
-                title:'v-model语法糖',
-                path:'v-model'
-            },{
-                title:'v-bind实现样式变量注入',
-                path:'css_v-bind'
-            }]
+            data:[]
         }
     }
 }

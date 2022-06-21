@@ -9,6 +9,8 @@
 import Knowledge from '@/component-knowledge/index.vue'
 import DefaultAsyncComponen from '@/component-knowledge/defaultAsyncComponent/index.vue'
 import UseInterSelectionObserver from '@/component-knowledge/useInterSelectionObserver/index.vue'
+import VModel from '@/component-knowledge/vModel/index.vue'
+import CssVBind from '@/component-knowledge/cssVBind/index.vue'
 
 import { RouteLocationNormalized } from "vue-router";
 
@@ -42,6 +44,20 @@ export default {
     component: UseInterSelectionObserver,
     meta:{
       title: '视口区域加载',
+    }
+  },{
+    path: "v-model",
+    name: "VModel",
+    component: VModel,
+    meta:{
+      title: 'v-model语法糖',
+    }
+  },{
+    path: "css_v-bind",
+    name: "CssVBind",
+    component: CssVBind,
+    meta:{
+      title: 'v-bind实现样式变量',
     }
   }],
   beforeEnter: (to: RouteLocationNormalized) => {

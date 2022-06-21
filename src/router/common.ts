@@ -6,6 +6,7 @@ import Record from '@/pageCommon/record/index.vue'
 import Knowledge from '@/pageCommon/knowledge/index.vue'
 import Vue from '@/pageCommon/knowledge/vue/index.vue'
 import Vue3 from '@/pageCommon/knowledge/vue/vue3/index.vue'
+import VueCommon from '@/pageCommon/knowledge/vue/common/index.vue'
 
 import { RouteLocationNormalized } from "vue-router";
 
@@ -63,6 +64,15 @@ export default {
           title: 'vue3',
           index:'3-1-1',
           url:'/page-common/knowledge/vue/vue3'
+        },
+      },{
+        path: 'common',
+        name: 'common',
+        component: VueCommon,
+        meta: {
+          title: 'common',
+          index:'3-1-2',
+          url:'/page-common/knowledge/vue/common'
         },
       }]
     }]

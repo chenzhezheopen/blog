@@ -9,20 +9,26 @@
     <div class="v-bind">
         <el-color-picker v-model="variable" show-alpha @active-change='handlerChangePrimary' /><br/>
         <a class="variable-color">这是效果文字</a>
+        {{imageObject}}
+        <img :src="imageObject.heroImage" alt="">
     </div>
 </template>
 
 <script lang='ts'>
 import { reactive, toRefs,ref } from 'vue';
+import imageObject from './index.js'
 export default {
     setup(){
         const variable = ref('red')
         const handlerChangePrimary = ()=>{
 
         }
+        console.log(imageObject);
+        
         return {
             variable,
-            handlerChangePrimary
+            handlerChangePrimary,
+            imageObject
         }
     }
 }

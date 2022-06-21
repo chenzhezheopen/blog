@@ -8,6 +8,8 @@ import Vue from '@/pageCommon/knowledge/vue/index.vue'
 import Vue3 from '@/pageCommon/knowledge/vue/vue3/index.vue'
 import VueCommon from '@/pageCommon/knowledge/vue/common/index.vue'
 
+import Share from '@/pageCommon/share/index.vue'
+
 import { RouteLocationNormalized } from "vue-router";
 
 
@@ -76,6 +78,15 @@ export default {
         },
       }]
     }]
+  },{
+    path: "share",
+    name: "Share",
+    component: Share,
+    meta: {
+      title: '分享',
+      index: '4',
+      url:'/page-common/share'
+    }
   }],
   beforeEnter: (to: RouteLocationNormalized) => {
     const { pageTitle } = storeToRefs(useAppStore())

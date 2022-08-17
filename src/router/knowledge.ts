@@ -11,6 +11,7 @@ import DefaultAsyncComponen from '@/component-knowledge/defaultAsyncComponent/in
 import UseInterSelectionObserver from '@/component-knowledge/useInterSelectionObserver/index.vue'
 import VModel from '@/component-knowledge/vModel/index.vue'
 import CssVBind from '@/component-knowledge/cssVBind/index.vue'
+import KeepAlive from '@/component-knowledge/keepAlive/index.vue'
 
 import { RouteLocationNormalized } from "vue-router";
 
@@ -18,7 +19,6 @@ import { RouteLocationNormalized } from "vue-router";
 import { useAppStore } from '@/pinia/app'
 import { storeToRefs } from 'pinia'
 
-import { defineAsyncComponent } from 'vue'
 
 // const DefaultAsyncComponen = defineAsyncComponent(async () =>{
 //   await new Promise(resolve => setTimeout(resolve, 1000))
@@ -58,6 +58,13 @@ export default {
     component: CssVBind,
     meta:{
       title: 'v-bind实现样式变量',
+    }
+  },{
+    path: "keep-alive",
+    name: "keepAlive",
+    component: KeepAlive,
+    meta:{
+      title: '组件缓存',
     }
   }],
   beforeEnter: (to: RouteLocationNormalized) => {

@@ -18,7 +18,6 @@
             </div>
         </div>
     </div>
-
     <div class="function-modules">
         <div class="function-modules-header">
             Features
@@ -63,6 +62,64 @@
 import {getCurrentInstance } from 'vue'
 import {useAppStore} from '@/pinia/app'
 import {storeToRefs} from 'pinia'
+
+// import axios from 'axios'
+
+// const getDta = ()=>{
+//     axios.get('/doubi-api/search?keyword=a').then(res=>{
+//         console.log(res);
+//     })
+// }
+// getDta()
+// function Temp(){
+
+// }
+// Temp.prototype.myjoin=function (emoji=',') {
+//       let self = this;
+//       let str = "";
+//       let i = 0;
+//       if (!Array.isArray(self)) throw `${self} is not Array`;
+//       if(self.length===0) return ''
+//       if (self.length === 1) return `${self[0]}`;
+//       i = 1;
+//       str = this[0];
+//       for (; i < self.length; i++) {
+//         str += `${emoji}${self[i]}`;
+//       }
+//       return str;
+// }
+// let arr = [1,2,3]
+// let str = '223333'
+// arr.__proto__ = Temp.prototype
+// console.log(arr);
+
+// console.log(arr.myjoin(','));
+// console.log(arr);
+
+// console.log(Object.prototype.toString.call(arr));
+
+const obj = Object.create({ foo: 1 }, { // foo is on obj's prototype chain.
+  bar1: {
+    value: 2  // bar is a non-enumerable property.
+  },
+  baz: {
+    value: 3,
+    enumerable: true  // baz is an own enumerable property.
+  }
+});
+console.log(obj);
+
+const copy = Object.assign({}, obj);
+console.log(copy); // { baz: 3 }
+
+// let target = Object.defineProperty({}, 'foo', {
+//   value: 1,
+//   writable: false
+// }); // target.foo is a read-only property
+
+// Object.assign(target, { bar: 2 }, { foo2: 3, foo3: 3 }, { baz: 4 });
+// console.log(target);
+
 
 
 </script>
@@ -185,6 +242,12 @@ import {storeToRefs} from 'pinia'
             }
         }
     }
+}
+$content:"red";
+$content:"blue" !default;
+
+.demo{
+    color:$content;
 }
 
 </style>

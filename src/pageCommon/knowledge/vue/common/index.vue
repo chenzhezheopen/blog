@@ -13,7 +13,10 @@ export default {
     components:{RandomModule},
     setup(){
         return{
-            data:[]
+            data:[{
+                title:'keepAlive',
+                path:'keep-alive'
+            }]
         }
     }
 }

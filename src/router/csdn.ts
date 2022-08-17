@@ -9,6 +9,17 @@ import { RouteLocationNormalized} from "vue-router";
 import { useAppStore } from '@/pinia/app'
 import { storeToRefs } from 'pinia'
 
+const todo = {
+  title: 'Clean room',
+  completed: false,
+}
+
+//   type Mapish = { [k: number]: boolean };
+let p = typeof todo
+let a1 = p
+console.log(typeof p);
+console.log(JSON.stringify(p));
+console.log(a1);
 
 export default{
     path: "csdn",

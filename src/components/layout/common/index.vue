@@ -10,10 +10,18 @@
     </div>
 </template>
 
-<script setup>
+<script lang='ts'>
 import {useAppStore} from '@/pinia/app'
 import { storeToRefs } from 'pinia';
-const {commonHeaderVisible} = storeToRefs(useAppStore())
+export default{
+    setup(){
+        const {commonHeaderVisible} = storeToRefs(useAppStore())
+        return {
+            commonHeaderVisible
+        }
+    }
+}
+
 
 </script>
 
@@ -26,10 +34,13 @@ const {commonHeaderVisible} = storeToRefs(useAppStore())
         width: 100%;
         position: sticky;
         top: 0;
-        background: var(--background-color);
-        z-index: 99;
+        z-index: 9;
         transform: translateY(-110%);
         transition: .4s;
+        background-image: radial-gradient(transparent 1px,var(--background-color) 1px);
+        background-size: 4px 4px;
+
+        backdrop-filter: saturate(50%) blur(4px);
     }
     .isShow{
         transform: translateY(0);

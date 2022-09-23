@@ -15,7 +15,7 @@
                         <img src="@/assets/gif/logo.gif" alt="">
                     </div>
                     <div style="flex:1"></div>
-                    <div class="menu flex-align-center">
+                    <!-- <div class="menu flex-align-center">
                         <el-menu 
                             :ellipsis='false'
                             :default-active="activeIndex" 
@@ -29,67 +29,95 @@
                             <CommonMenu :data="item" v-if="item.hidden!=false" />
                         </template>
                         </el-menu>
-                    </div>
+                    </div> -->
+                    <el-button type="primary" class="almighty-allow" @click="open('Login')">登陆</el-button>
                 </div>
             </template>
             <template #body>
-                <router-view></router-view>
+                <router-view v-slot="{ Component }">
+                    <component :is="Component" />
+                </router-view>
+                    <!-- <keep-alive>
+                        <component :is="Component"/>
+                    </keep-alive>
+                </router-view> -->
             </template>
         </commonLayout>
     </div>
 </template>
 <script lang="ts">
-import {useAppStore} from '@/pinia/app'
-import {storeToRefs} from 'pinia'
-export default{
-  beforeRouteLeave(to, from, next) {
-    const {commonHeaderVisible} = storeToRefs(useAppStore())
-    commonHeaderVisible.value = false
-    setTimeout(() => {
-        next()    
-    }, 400);
-  },
-}
-</script>
-<script lang='ts' setup>
+import { useAppStore } from "@/pinia/app";
+import { useAlmightyStore } from "@/pinia/almighty";
+import { storeToRefs } from "pinia";
 import commonLayout from "@/components/layout/common/index.vue";
-import {useRoute} from 'vue-router'
-import { ref,onMounted } from "vue";
-import commonRoute from '@/router/common'
-import CommonMenu from './menu.vue'
+import baseData from "@/api/modules/data";
 
+import { useRoute } from "vue-router";
+import { ref, onMounted } from "vue";
+import commonRoute from "@/router/common";
+import CommonMenu from "./menu.vue";
 
-const {commonHeaderVisible} = storeToRefs(useAppStore())
-//menu data
-const menuNav = commonRoute.children
-//init active
-const route = useRoute()
-const activeIndex = ref("/page-common/home");
-onMounted(()=>{
-    activeIndex.value = route.path
-    setTimeout(() => {
+export default {
+    components: { commonLayout,CommonMenu },
+    beforeRouteLeave(to, from, next) {
+        const { commonHeaderVisible } = storeToRefs(useAppStore());
+        commonHeaderVisible.value = false;
+        setTimeout(() => {
+            next();
+        }, 400);
+    },
+    setup() {
+        const { commonHeaderVisible } = storeToRefs(useAppStore());
+        const { open } = useAlmightyStore() 
+        //menu data
+        const menuNav:any = commonRoute.children;
         
-    commonHeaderVisible.value = true
-    }, 500);
-})
+        //init active
+        const route = useRoute();
+        const activeIndex = ref("/page-common/home");
+        onMounted(() => {
+            activeIndex.value = route.path;
+            setTimeout(() => {
+                commonHeaderVisible.value = true;
+            }, 500);
+        });
 
+        const init = async () => {
+            let d1 = await baseData.node({ a: 1 });
+            console.log(d1);
+
+            let d2 = await baseData.ga({ a: 1 });
+            console.log(d2);
+        };
+
+        init();
+        return{
+            menuNav,
+            activeIndex,
+            handleSelect:()=>{},
+            open
+        }
+    },
+};
 </script>
 <style scoped lang='scss'>
 .page-common-container {
     width: 100%;
     .header-wrapper {
         width: 100%;
-        padding: 0 350px 0 50px;
+        padding: 0 50px 0 50px;
         box-sizing: border-box;
         height: 56px;
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 0 5px #ccc;
         .logo {
             img {
-                height: 100%;
+                height: 50px;
             }
         }
-        .el-menu--horizontal{
+        .el-menu--horizontal {
             border: none !important;
         }
         .is-active {
@@ -97,7 +125,9 @@ onMounted(()=>{
         }
         .menu {
             min-width: 50%;
-            .el-menu{background: none;}
+            .el-menu {
+                background: none;
+            }
             .common-header-menu {
                 .el-menu-item:hover {
                     background: none;
@@ -111,16 +141,16 @@ onMounted(()=>{
                     min-width: 80px;
                     margin-right: 30px;
                 }
-                .is-active{
+                .is-active {
                     // background: var(--vt-c-text-1) !important;
                     color: $PrimaryColor;
                 }
             }
         }
     }
-    .bottom-content{
+    .bottom-content {
         position: relative;
-        .label{
+        .label {
             position: absolute;
             top: 30%;
             left: 10%;

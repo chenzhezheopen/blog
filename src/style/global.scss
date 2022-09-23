@@ -16,3 +16,51 @@ $temp :red;
     display: flex;
     align-items: center;
 }
+
+
+
+
+.blog-almighty-content-Default {
+    width: 200px;
+    height: 20px;
+    border-radius:0 0 25px 25px;
+    background: $PrimaryColor;
+    top: 0;
+    cursor: pointer;
+}
+.blog-almighty-content-Login {
+    width: 500px;
+    border-radius: 25px;
+    background: #fff;
+    box-shadow: 0 0 10px #ccc;
+    padding: 20px;
+    top: 30%;
+}
+.blog-almighty-content-SuperSearch {
+    width: 300px;
+    border-radius: 25px;
+    background: #fff;
+    box-shadow: 0 0 10px #ccc;
+    padding: 20px;
+}
+.blog-almighty-content-Catalog {
+    width: 500px;
+    border-radius: 25px;
+    background: var(--background-color);
+    box-shadow: 0 0 10px #ccc;
+    padding: 20px;
+    top: 10%;
+}
+
+.almighty-image-edit{
+    width: 118px;
+    height: 38px;
+    border-radius: 19px;
+    background: #fff;
+    top: 8px;
+    left: 8px !important;
+    transform: translateX(0) !important;
+    .almighty-modules{
+        display: none;
+    }
+}

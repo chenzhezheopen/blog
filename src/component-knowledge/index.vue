@@ -2,7 +2,8 @@
 <template>
   <div class="knowledge-default_async_component">
     <div class="header" :class="{shadow:isShadow}">
-      <span class="back" @click="back">回退</span>
+      <!-- <span class="back" @click="back">回退</span> -->
+      <el-button @click="back">回退</el-button>
     </div>
     <div class="knowledge-default_async_component-content">
       <Suspense>

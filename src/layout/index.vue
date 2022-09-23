@@ -1,10 +1,13 @@
 <script lang="ts">
 import { routes } from '@/router'
 import Navbar from './navbar/index.vue'
+import Login from './account/login.vue'
+import Almighty from './almighty/index.vue'
+
 import {useAppStore} from '@/pinia/app'
 import {storeToRefs} from 'pinia'
 export default {
-    components:{Navbar},
+    components:{Navbar,Login,Almighty},
     setup(){
         const {isNavbar} = storeToRefs(useAppStore())
 
@@ -17,7 +20,9 @@ export default {
 </script>
 
 <template>
+    <!-- <Login/> -->
     <div class="layout" :class='isNavbar?"collapse-show":"collapse-hid"'>
+        <Almighty />
         <div class="main-container">
             <router-view></router-view>
         </div>

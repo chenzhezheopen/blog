@@ -12,6 +12,8 @@ import UseInterSelectionObserver from '@/component-knowledge/useInterSelectionOb
 import VModel from '@/component-knowledge/vModel/index.vue'
 import CssVBind from '@/component-knowledge/cssVBind/index.vue'
 import KeepAlive from '@/component-knowledge/keepAlive/index.vue'
+import SlotComponent from '@/component-knowledge/slotComponent/index.vue'
+import vuePropertyDecorator from '@/component-knowledge/vue-property-decorator/index.vue'
 
 import { RouteLocationNormalized } from "vue-router";
 
@@ -65,6 +67,20 @@ export default {
     component: KeepAlive,
     meta:{
       title: '组件缓存',
+    }
+  },{
+    path: "slot-component",
+    name: "slotComponent",
+    component: SlotComponent,
+    meta:{
+      title: '插槽组件',
+    }
+  },{
+    path: "vue-property-decorator",
+    name: "vuePropertyDecorator",
+    component: vuePropertyDecorator,
+    meta:{
+      title: 'vue-property-decorator插件写法',
     }
   }],
   beforeEnter: (to: RouteLocationNormalized) => {

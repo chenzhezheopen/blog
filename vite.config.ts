@@ -44,6 +44,14 @@ export default defineConfig({
         target: "www.pkdoutu.com",
         rewrite: (path) => path.replace(/^\/doubi-api/, '')
       },
+      '^/blogBoot': {
+        target: "http://101.42.105.58:9527/",
+        rewrite: (path) => path.replace(/^\/api/, '')
+      },
+      // '^/blogBoot': {
+      //   target: "http://localhost:9527",
+      //   rewrite: (path) => path.replace(/^\/api/, '')
+      // }
     },
   },
   css: {

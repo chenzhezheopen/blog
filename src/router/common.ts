@@ -2,6 +2,7 @@
 import PageCommon from '@/pageCommon/index.vue'
 import Home from '@/pageCommon/home/index.vue'
 import Record from '@/pageCommon/record/index.vue'
+import ImageList from '@/pageCommon/imageList/index.vue'
 
 import Knowledge from '@/pageCommon/knowledge/index.vue'
 import Vue from '@/pageCommon/knowledge/vue/index.vue'
@@ -86,6 +87,13 @@ export default {
       title: '分享',
       index: '4',
       url:'/page-common/share'
+    }
+  },{
+    path: "image-list",
+    name: "imageList",
+    component: ImageList,
+    meta: {
+      title: '图片虚拟列表',
     }
   }],
   beforeEnter: (to: RouteLocationNormalized) => {

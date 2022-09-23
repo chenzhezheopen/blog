@@ -16,6 +16,12 @@ export default {
             data:[{
                 title:'keepAlive',
                 path:'keep-alive'
+            },{
+                title:'插槽返回组件',
+                path:'slot-component'
+            },{
+                title:'vue-property-decorator插件',
+                path:'vue-property-decorator'
             }]
         }
     }

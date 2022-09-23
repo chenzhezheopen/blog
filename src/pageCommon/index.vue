@@ -2,7 +2,7 @@
     <div class="page-common-container">
         <commonLayout>
             <template #bottom>
-                <div class="bottom-content">
+                <div class="bottom-content" v-if="$route.path=='/page-common/home'">
                     <div class="label flex-center">
                         {{'</>'}}
                     </div>

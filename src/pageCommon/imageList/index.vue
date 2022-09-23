@@ -4,19 +4,22 @@
  * @LastEditors: cz
  * @Description: 
 -->
-<!--  -->
 <template>
-  <div class="common-image-list">
-    <div class="common-image-list-wrapper">
-      <div v-for="(item, index) in list" :key="index" class="img-content">
+  <div class="common-image-list" ref="contentRef">
+    <div class="common-image-list-wrapper" :style="{
+    height:containerHeight+'px',
+  }">
+  <div class="position-move-content" :style="{transform:`translateY(${scrollPosition}px)`}">
+      <div v-for="(item, index) in validList" :key="index" class="img-content">
         <!-- <img :src="item.middleURL" alt=""> -->
-        <el-image
-          style="width: 260px; height: 160px"
+        <!-- <el-image
+          style="width: 100%; height: 160px"
           :src="item.middleURL"
           lazy
           :previewSrcList="preview"
           fit="contain"
-        />
+        /> -->
+        <img :src="item.middleURL" style="width: 100%; height: 160px">
         <div class="operation-mask">
           <svg class="icon svg-icon svg1" aria-hidden="true" @click="previewImage(item.middleURL)">
             <use xlink:href="#icon-yunxiazai"></use>
@@ -30,6 +33,7 @@
         </div>
         <div class="img-name">{{ item.fromPageTitle }}</div>
       </div>
+    </div>
     </div>
   </div>
 
@@ -46,6 +50,15 @@
       <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
     </template>
   </el-dialog> -->
+  <teleport to='.almighty-feature-teleport' v-if="defaultComponentName==='Catalog'">
+    <div class="search-wrapper">
+      <el-input v-model="searchName" placeholder="请输入要搜索的图片(内容来自百度)">
+        <template #append>
+          <el-button @click="handlerSearch" type="primary">搜索</el-button>
+        </template>
+      </el-input>
+    </div>
+  </teleport>
   <div class="image-edit-wrapper-dialog" v-if="imageEditVisable">
     <teleport to='.almighty-content'>
       <div class="almighty-container" @click="back">
@@ -64,10 +77,11 @@
 </template>
 
 <script lang="ts">
-  import { reactive, toRefs } from "vue";
+  import { reactive, toRefs, watch, ref, onMounted } from 'vue';
   import data from "@/api/modules/data";
   import {state} from './type'
   import {useAlmightyStore} from '@/pinia/almighty'
+  import { storeToRefs } from "pinia";
   import downloadFile from '@/utils/downloadFile'
   import ImageEdit from '@/components/toolComponents/ImageEdit.vue'
 
@@ -77,27 +91,74 @@
     setup() {
       const state:state = reactive({
         list: [],
+        validList:[],
         preview: [],
         imageEditVisable:false,
         previewImageVisable:false,
-        editImage:''
+        editImage:'',
+        containerHeight:0,
+        scrollPosition:0,
+        searchName:''
       });
 
-      const {setStyleName} = useAlmightyStore() 
+      const contentRef = ref<null | HTMLElement>(null)
+      const { defaultComponentName } = storeToRefs(useAlmightyStore());
+      const {setStyleName,open} = useAlmightyStore() 
 
 
       const init = async () => {
-        const res = await data.querybaiduimageList();
+        const res = await data.querybaiduimageList(state.searchName);
         const t:any[] = res.data || res.msg.data;
         let m:any[] = [];
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 100; i++) {
           m = [...m, ...t];
         }
         m.sort((a, b) => {
           return Math.random() > 0.5 ? -1 : 1;
         });
         state.list = m;
+        state.validList = state.list.slice(0,20)
+
+        if(contentRef.value){
+          contentRef.value.scrollTop=0;
+        }
       };
+
+      watch(()=>state.list,()=>{
+        state.containerHeight = (state.list.length/5)*195
+      })
+
+      onMounted(()=>{
+        console.log(contentRef.value);
+        console.log(document.getElementsByClassName('common-image-list'));
+        
+        // contentRef.value
+        contentRef.value?.addEventListener('scroll',countHeight)
+      })
+      const countHeight = ()=>{
+        if(Math.abs(contentRef.value!.scrollTop-state.scrollPosition)>=195){
+
+          state.scrollPosition = contentRef.value!.scrollTop
+
+          const c = Math.floor(state.scrollPosition/195)
+          console.log(c);
+          
+          const num = c*5
+          state.validList = state.list.slice(num,num+30)
+
+        }else{
+
+          if(state.scrollPosition - contentRef.value!.scrollTop > 0){
+            state.scrollPosition = (Math.floor(contentRef.value!.scrollTop/195))*195
+            const c = Math.floor(state.scrollPosition/195)
+            const num = c*5
+            state.validList = state.list.slice(num,num+30)
+          }
+        }
+      }
+
+
+      
 
       const imageEdit = (imageUrl)=>{
         state.imageEditVisable = true
@@ -118,6 +179,12 @@
         state.previewImageVisable = false
       }
 
+      const handlerSearch = ()=>{
+        init()
+        open('Default')
+      }
+
+      
 
 
 
@@ -129,7 +196,12 @@
         imageEdit,
         back,
         previewImage,
-        previewImageClose
+        previewImageClose,
+        countHeight,
+        handlerSearch,
+        open,
+        contentRef,
+        defaultComponentName
       };
     },
   };
@@ -147,13 +219,24 @@
       transform: translateY(0px);
     }
   }
+  .common-image-list{
+    height: 100vh;
+    overflow: scroll;
+    margin-top: -56px;
+  }
   .common-image-list-wrapper {
-    display: flex;
-    flex-wrap: wrap;
+    margin-top: 56px;
+    .position-move-content{
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
     .img-content {
-      margin: 10px;
+      padding: 10px;
       position: relative;
       padding-bottom: 20px;
+      width: 20%;
+      box-sizing: border-box;
       // img{
       //     width: 260px;
       //     height: 160px;
@@ -163,8 +246,8 @@
       .operation-mask{
         position: absolute;
         overflow: hidden;
-        left: 0;
-        top: 0;
+        left: 0px;
+        top: 10px;
         width: 100%;
         height: 160px;
         transition: .4s;
@@ -192,7 +275,7 @@
       }
       .img-name {
         position: absolute;
-        width: 100%;
+        width: calc(100% - 20px);
         bottom: 0;
         display: block;
         margin-top: 4px;
@@ -209,9 +292,10 @@
     .img-content:hover{
       .operation-mask{
         display: flex;
-        background-image: radial-gradient(transparent 1px,var(--background-color) 1px);
-        background-size: 4px 4px;
-        backdrop-filter: saturate(50%) blur(4px);
+        background: rgba(0,0,0,.3);
+        // background-image: radial-gradient(transparent 1px,var(--background-color) 1px);
+        // background-size: 4px 4px;
+        // backdrop-filter: saturate(50%) blur(4px);
       }
     }
   }
@@ -243,5 +327,8 @@
     height: 100vh;
     z-index: 97;
     background: rgba(0,0,0,.7);
+  }
+  .search-wrapper{
+    margin-bottom: 20px;
   }
 </style>

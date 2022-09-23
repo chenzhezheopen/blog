@@ -6,8 +6,12 @@
  */
 export type state = {
     list:any[],
+    validList:any[],
     preview: string[],
     imageEditVisable:boolean,
     previewImageVisable:boolean,
-    editImage:string
+    editImage:string,
+    containerHeight:number,
+    scrollPosition:number,
+    searchName:string
 }

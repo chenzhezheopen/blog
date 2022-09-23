@@ -8,7 +8,7 @@ export default {
   ga: (param:any) => {
     return get(`/ga`, param)
   },
-  querybaiduimageList: ()=>{
-    return get(`/user/querybaiduimageList`,{})
+  querybaiduimageList: (searchName:string)=>{
+    return get(`/user/querybaiduimageList`,{imageType:searchName})
   }
 }

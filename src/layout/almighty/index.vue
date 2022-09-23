@@ -17,6 +17,12 @@
           <use xlink:href="#icon-classify"></use>
         </svg>
       </div>
+
+      <!-- 特色定制菜单 -->
+      <div class="almighty-feature-teleport">
+
+      </div>
+      
       <component :is="dialogComponents[defaultComponentName]" class="almighty-modules" />
       <!-- </div> -->
     </div>

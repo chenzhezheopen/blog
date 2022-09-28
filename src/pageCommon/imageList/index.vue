@@ -10,7 +10,8 @@
     height:containerHeight+'px',
   }">
   <div class="position-move-content" :style="{transform:`translateY(${scrollPosition}px)`}">
-      <div v-for="(item, index) in validList" :key="index" class="img-content">
+    <template v-for="(item, index) in validList" :key="index">
+      <div class="img-content" v-if="item.middleURL">
         <!-- <img :src="item.middleURL" alt=""> -->
         <!-- <el-image
           style="width: 100%; height: 160px"
@@ -19,7 +20,7 @@
           :previewSrcList="preview"
           fit="contain"
         /> -->
-        <img :src="item.middleURL" style="width: 100%; height: 160px">
+        <img :src="item.middleURL" style="width: 100%; height: 160px;object-fit: contain;">
         <div class="operation-mask">
           <svg class="icon svg-icon svg1" aria-hidden="true" @click="previewImage(item.middleURL)">
             <use xlink:href="#icon-yunxiazai"></use>
@@ -30,9 +31,13 @@
           <svg class="icon svg-icon svg3" aria-hidden="true" @click="imageEdit(item.middleURL)">
             <use xlink:href="#icon-bianji"></use>
           </svg>
+          <svg class="icon svg-icon svg3" aria-hidden="true" @click="addWish(item.middleURL)" v-if="!wishList.map(res=>res.img).includes(item.middleURL)">
+            <use xlink:href="#icon-attent"></use>
+          </svg>
         </div>
-        <div class="img-name">{{ item.fromPageTitle }}</div>
+        <div class="img-name" v-html='item.fromPageTitle'></div>
       </div>
+    </template>
     </div>
     </div>
   </div>
@@ -79,11 +84,14 @@
 <script lang="ts">
   import { reactive, toRefs, watch, ref, onMounted } from 'vue';
   import data from "@/api/modules/data";
+  import userApi from '@/api/modules/user'
   import {state} from './type'
   import {useAlmightyStore} from '@/pinia/almighty'
+  import { useUserStore } from '@/pinia/user';
   import { storeToRefs } from "pinia";
   import downloadFile from '@/utils/downloadFile'
   import ImageEdit from '@/components/toolComponents/ImageEdit.vue'
+  import { ElMessage } from 'element-plus';
 
 
   export default {
@@ -103,19 +111,21 @@
 
       const contentRef = ref<null | HTMLElement>(null)
       const { defaultComponentName } = storeToRefs(useAlmightyStore());
-      const {setStyleName,open} = useAlmightyStore() 
+      const {setStyleName,open,close} = useAlmightyStore() 
+      const {wishList} = storeToRefs(useUserStore())
+      const {assignState} = useUserStore()
 
 
-      const init = async () => {
-        const res = await data.querybaiduimageList(state.searchName);
+      const init = async (searchName = '壁纸') => {
+        const res = await data.querybaiduimageList(searchName);
         const t:any[] = res.data || res.msg.data;
         let m:any[] = [];
         for (let i = 0; i < 100; i++) {
           m = [...m, ...t];
         }
-        m.sort((a, b) => {
-          return Math.random() > 0.5 ? -1 : 1;
-        });
+        // m.sort((a, b) => {
+        //   return Math.random() > 0.5 ? -1 : 1;
+        // });
         state.list = m;
         state.validList = state.list.slice(0,20)
 
@@ -180,8 +190,23 @@
       }
 
       const handlerSearch = ()=>{
-        init()
-        open('Default')
+        init(state.searchName)
+        close()
+      }
+
+
+      //添加图片
+      const addWish =async (img)=>{
+        console.log(img);
+        
+        let res:any = await userApi.addWish(img)
+        if(res.code === 200){
+          assignState({wishList:[...wishList.value,{img}]})
+          ElMessage.success(res.msg)
+
+        }else{
+          ElMessage.error(res.msg)
+        }
       }
 
       
@@ -199,9 +224,11 @@
         previewImageClose,
         countHeight,
         handlerSearch,
-        open,
+        close,
         contentRef,
-        defaultComponentName
+        defaultComponentName,
+        addWish,
+        wishList
       };
     },
   };
@@ -292,7 +319,7 @@
     .img-content:hover{
       .operation-mask{
         display: flex;
-        background: rgba(0,0,0,.3);
+        background: rgba(255,255,255,.5);
         // background-image: radial-gradient(transparent 1px,var(--background-color) 1px);
         // background-size: 4px 4px;
         // backdrop-filter: saturate(50%) blur(4px);

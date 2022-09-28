@@ -36,10 +36,8 @@ export default{
         top: 0;
         z-index: 9;
         transform: translateY(-110%);
-        transition: .4s;
         background-image: radial-gradient(transparent 1px,var(--background-color) 1px);
         background-size: 4px 4px;
-
         backdrop-filter: saturate(50%) blur(4px);
     }
     .isShow{

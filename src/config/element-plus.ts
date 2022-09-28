@@ -1,4 +1,4 @@
-import { ElImage,ElImageViewer,ElButton,ElMenu,ElMenuItem,ElSubMenu,ElColorPicker,ElTimeline,ElTimelineItem,ElSwitch,ElTag,ElTabs,ElTabPane,ElInput,ElDialog,ElForm,ElFormItem } from 'element-plus'
+import { ElAvatar,ElImage,ElImageViewer,ElButton,ElMenu,ElMenuItem,ElSubMenu,ElColorPicker,ElTimeline,ElTimelineItem,ElSwitch,ElTag,ElTabs,ElTabPane,ElInput,ElDialog,ElForm,ElFormItem } from 'element-plus'
 import { App} from 'vue'
     
 //按需引入样式
@@ -19,6 +19,8 @@ import 'element-plus/es/components/form-item/style/css'
 import 'element-plus/es/components/message/style/css'
 import 'element-plus/es/components/image/style/css'
 import 'element-plus/es/components/image-viewer/style/css'
+import 'element-plus/es/components/notification/style/css'
+import 'element-plus/es/components/avatar/style/css'
 
 import '@/style/element/element_cover.scss'
     
@@ -40,4 +42,5 @@ export default (app:App<Element>) => {
     app.use(ElFormItem)
     app.use(ElImage)
     app.use(ElImageViewer)
+    app.use(ElAvatar)
 }

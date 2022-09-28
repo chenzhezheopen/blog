@@ -51,7 +51,11 @@ export default defineConfig({
       // '^/blogBoot': {
       //   target: "http://localhost:9527",
       //   rewrite: (path) => path.replace(/^\/api/, '')
-      // }
+      // },
+      '^/api': {
+        target: "www.iconfont.cn",
+        rewrite: (path) => path.replace(/^\/api/, '')
+      },
     },
   },
   css: {

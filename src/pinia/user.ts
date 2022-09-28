@@ -6,16 +6,62 @@
  */
 
 import { defineStore } from "pinia";
+import userApi from '@/api/modules/user'
+
+interface userInfo{
+    avatar:string,
+    id?: number|null,
+    account: string,
+    name: string,
+    sex: string,
+    age?: number|null
+}
+interface wishArray{
+    img:string
+}
+
+interface state{
+    token:string,
+    info:userInfo,
+    wishList:array<wishArray>|null
+}
+
+function state():state{
+    return {
+        token:'',
+        info:{
+            id: null,
+            account: '',
+            name: '',
+            sex: '',
+            age: null,
+            avatar:''
+        },
+        wishList:[]
+    }
+}
+
 
 export const useUserStore = defineStore('user',{
-    state: () => ({
-        token:'chenzhezhe-token'
-    }),
+    state:()=> state(),
     actions: {
+        clearUserInfo(){
+            this.token = ''
+            Object.assign(this.info,state().info)
+        },
         queryToken(str:string) {
-            console.log(str);
-            
             this.token = str
+        },
+        assignState(obj){
+            console.log(obj);
+            
+            Object.assign(this,obj)
+        },
+        async queryWish (){
+            let res:any = await userApi.queryWish()
+            if(res.code === 200){
+                this.wishList = res.data
+            }
         }
     },
     persist: {

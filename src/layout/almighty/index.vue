@@ -18,39 +18,49 @@
         </svg>
       </div>
 
-      <!-- 特色定制菜单 -->
-      <div class="almighty-feature-teleport">
-
-      </div>
-      
-      <component :is="dialogComponents[defaultComponentName]" class="almighty-modules" />
+      <component :is="dialogComponents[defaultComponentName]" class="almighty-modules">
+        <!-- 头像展示 -->
+        <template #user>
+          <div class="user-container" v-if="token&&info.avatar">
+            <el-avatar shape="square" :size="50" :src="info.avatar" />
+          </div>
+        </template>
+        
+          <!-- 特色定制菜单 -->
+        <template #teleport>
+          <div class="almighty-feature-teleport">
+          </div>
+        </template>
+      </component>
       <!-- </div> -->
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
   import dialogComponents from "./dialogComponents";
   import { useAlmightyStore } from "@/pinia/almighty";
+  import { useUserStore } from "@/pinia/user";
   import { storeToRefs } from "pinia";
-  import { reactive, toRefs } from "vue";
-  export default {
-    setup() {
-      const { defaultComponentName, styleName } = storeToRefs(useAlmightyStore());
-      const { close, open } = useAlmightyStore();
-
-      return {
-        defaultComponentName,
-        styleName,
-        dialogComponents,
-        close,
-        open
-      };
-    },
-  };
+  // import { reactive, toRefs } from "vue";
+  
+  const { defaultComponentName, styleName } = storeToRefs(useAlmightyStore());
+  const { info,token } = storeToRefs(useUserStore());
+  const { close, open } = useAlmightyStore();
+  console.log(token);
+  
+    
 </script>
+
 <style scoped lang="scss">
   /* @import url(); 引入css类 */
+  .user-container{
+    width: 100%;
+    display: flex;
+    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: center;
+  }
   .almighty {
     &-content {
       position: fixed;

@@ -18,7 +18,8 @@ export type travers<T> = {
 
 //axios
 export type statusCode = {
-  403:voidFnType
+  403:voidFnType,
+  401:voidFnType,
 }
 //数据类型
 export interface interceptors{
@@ -34,6 +35,7 @@ export type defaultOption = {
   $needToken?: boolean, // 是否携带token
   $retry?: number, // 重试次数
   $silent?: boolean // 无全局提示 true:不提示  false:提示
+  headers?:any
 }
 
 export type requestConfigType = AxiosRequestConfig & defaultOption;

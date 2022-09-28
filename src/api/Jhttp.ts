@@ -21,8 +21,9 @@ import {
   isUndefined
 } from 'lodash'
 import fullLoading from '../utils/fullLoading'
+import {useUserStore} from '@/pinia/user'
 import router from '@/router'
-
+import {ElNotification} from 'element-plus'
 
 /** 取消请求 */
 const CancelToken = axios.CancelToken
@@ -89,6 +90,15 @@ class Jhttp {
     this.strategy = {
       403: () => {
         router.push('/login')
+      },
+      401: ()=>{
+        const {clearUserInfo} = useUserStore()
+        clearUserInfo()
+        ElNotification({
+          title: 'Error',
+          message: 'token校验不通过',
+          type: 'error',
+        })
       }
     }
     this.defaultOption = {
@@ -181,14 +191,17 @@ class Jhttp {
 
   post (url: string, body: any, config: defaultOption = {}) {
     const option = merge({}, this.defaultOption, config)
+    console.log(config.headers);
+    
     return this.http({
       method: 'post',
       url,
       data: option.$type === 'json' ? body : JSON.stringify(body),
       headers: {
-        'Content-Type': option.$type === 'json' ? CT_TYPE.applicationJson : CT_TYPE.applicationForm
+        'Content-Type': option.$type === 'json' ? CT_TYPE.applicationJson : CT_TYPE.applicationForm,
+        ...(config.headers?config.headers:{})
       },
-      ...option
+      ...option,
     })
       .catch(err => {
         console.log(err.message, ', retry ' + config.$retry)

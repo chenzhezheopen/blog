@@ -3,6 +3,8 @@ import PageCommon from '@/pageCommon/index.vue'
 import Home from '@/pageCommon/home/index.vue'
 import Record from '@/pageCommon/record/index.vue'
 import ImageList from '@/pageCommon/imageList/index.vue'
+import UserMange from '@/pageCommon/mange/index.vue'
+import IconList from '@/pageCommon/iconList/index.vue'
 
 import Knowledge from '@/pageCommon/knowledge/index.vue'
 import Vue from '@/pageCommon/knowledge/vue/index.vue'
@@ -94,6 +96,20 @@ export default {
     component: ImageList,
     meta: {
       title: '图片虚拟列表',
+    }
+  },{
+    path: "icon-list",
+    name: "iconList",
+    component: IconList,
+    meta: {
+      title: '图片虚拟列表',
+    }
+  },{
+    path: "user-mange",
+    name: "userMange",
+    component: UserMange,
+    meta: {
+      title: '个人中心',
     }
   }],
   beforeEnter: (to: RouteLocationNormalized) => {

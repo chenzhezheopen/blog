@@ -4,7 +4,7 @@
  * @LastEditors: cz
  * @Description: 
  */
-import { get } from '../index.js'
+import { get,baseURL,post } from '../index'
 
 type loginParams = {
     account:string,
@@ -13,6 +13,15 @@ type loginParams = {
 
 export default {
   login: (param: loginParams):any => {
-    return get(`/user/login`, param)
+    return get(`${baseURL}/user/login`, param)
+  },
+  queryUserInfo: ():any => {
+    return get(`${baseURL}/user/queryInfo`,{})
+  },
+  addWish: (img:string)=>{
+    return post(`${baseURL}/user/add/wish/img`,{img})
+  },
+  queryWish:()=>{
+    return post(`${baseURL}/user/query/wish/img`,{})
   }
 }

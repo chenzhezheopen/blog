@@ -8,9 +8,8 @@ import Jhttp from './Jhttp'
 import { useUserStore } from '@/pinia/user'
 import { storeToRefs } from 'pinia'
 
-const http = new Jhttp({
-  baseURL: '/blogBoot'
-})
+const http = new Jhttp({})
+export const baseURL = '/blogBoot'
 
 http.tokenProperty = 'Authorizations' // 默认为token
 

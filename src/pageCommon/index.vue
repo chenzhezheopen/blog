@@ -10,27 +10,12 @@
                 </div>
             </template>
             <template #header>
-                <div class="header-wrapper">
-                    <div class="logo">
-                        <img src="@/assets/gif/logo.gif" alt="">
+                <div class="header-wrapper" :class="[`header-wrapper-${$route.name}`]">
+                    <div class="heaser-content">
+                        <div class="logo">
+                            <img src="@/assets/gif/logo.gif" alt="">
+                        </div>
                     </div>
-                    <div style="flex:1"></div>
-                    <!-- <div class="menu flex-align-center">
-                        <el-menu 
-                            :ellipsis='false'
-                            :default-active="activeIndex" 
-                            class="common-header-menu" 
-                            mode="horizontal" 
-                            @select="handleSelect"
-                            :router='true'
-                            :route='menuNav'
-                        >
-                        <template v-for="item in menuNav" :key="item.path">
-                            <CommonMenu :data="item" v-if="item.hidden!=false" />
-                        </template>
-                        </el-menu>
-                    </div> -->
-                    <el-button type="primary" class="almighty-allow" @click="open('Login')">登陆</el-button>
                 </div>
             </template>
             <template #body>
@@ -82,15 +67,15 @@ export default {
             }, 500);
         });
 
-        const init = async () => {
-            let d1 = await baseData.node({ a: 1 });
-            console.log(d1);
+        // const init = async () => {
+        //     let d1 = await baseData.node({ a: 1 });
+        //     console.log(d1);
 
-            let d2 = await baseData.ga({ a: 1 });
-            console.log(d2);
-        };
+        //     let d2 = await baseData.ga({ a: 1 });
+        //     console.log(d2);
+        // };
 
-        init();
+        // init();
         return{
             menuNav,
             activeIndex,
@@ -105,13 +90,16 @@ export default {
     width: 100%;
     .header-wrapper {
         width: 100%;
-        padding: 0 50px 0 50px;
         box-sizing: border-box;
-        height: 56px;
-        display: flex;
         justify-content: space-between;
         align-items: center;
         box-shadow: 0 0 5px #ccc;
+        transition: 1s;
+        .heaser-content{
+            width: 100%;
+            padding: 0 50px 0 50px;
+            display: flex;
+        }
         .logo {
             img {
                 height: 50px;

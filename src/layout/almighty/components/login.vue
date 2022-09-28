@@ -23,6 +23,7 @@
 
 <script lang='ts'>
 import { useUserStore } from '@/pinia/user'
+import { useAlmightyStore } from '@/pinia/almighty'
 import { reactive, toRefs } from 'vue';
 import {ElMessage} from 'element-plus'
 import userApi from '@/api/modules/user'
@@ -36,6 +37,7 @@ export default {
             }
         })
         const userStore = useUserStore()
+        const {open} = useAlmightyStore()
 
         const login = async ()=>{
             let res = await userApi.login(state.form)
@@ -43,6 +45,7 @@ export default {
             if(res.code===200){
                 state.dialogVisible = false
                 userStore.queryToken(res.data)
+                await queryUserInfo()
                 ElMessage({
                     message: '登陆成功',
                     type: 'success',
@@ -54,6 +57,17 @@ export default {
                 })
             }
             
+        }
+
+        const queryUserInfo = async () =>{
+            let info = await userApi.queryUserInfo()
+            if(info.code === 200){
+                userStore.assignState({
+                    info:info.data
+                })
+                userStore.queryWish()
+                open('Catalog')
+            }
         }
 
         const handleClose = () => {}
@@ -69,7 +83,8 @@ export default {
         return {
             ...toRefs(state),
             login,
-            handleClose
+            handleClose,
+            queryUserInfo
         }
     }
 }
